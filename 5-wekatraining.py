@@ -81,9 +81,12 @@ setEssential(dicce)
 #Complete set for each CE
 
 dicCompAux={}
+# outCompAux=open('files/trainingCE-AUX.csv','w')
+# outCompAux.write(strHeader)
 for gene in allgenes:
 	try:
 		dicCompAux[gene]=diccent[gene]+[dicaux[gene]]
+		#outCompAux.write(','.join(dicCompAux[gene])+'\n')
 	except Exception as e:
 		print 'Ex3: ',e
 li = dicCompAux.values()
@@ -106,11 +109,14 @@ for i in range(1,101):
 
 
 dicCompRich={}
+# outCompRich=open('files/trainingCE-RICH.csv','w')
+# outCompRich.write(strHeader)
 for gene in allgenes:
 	try:
 		dicCompRich[gene]=diccent[gene]+[dicrich[gene]]
+		# outCompRich.write(','.join(dicCompRich[gene])+'\n')
 	except Exception as e:
-		print 'Ex3: ',e
+		print 'Ex4: ',e
 li = dicCompRich.values()
 size=len(dicCompRich.values())
 ceric=[x for x in li if x[len(x)-1]=='CE-RICH']
@@ -130,11 +136,15 @@ for i in range(1,101):
 
 
 dicCompCE={}
+# outCompCE=open('files/trainingCE.csv','w')
+# outCompCE.write(strHeader)
 for gene in allgenes:
 	try:
 		dicCompCE[gene]=diccent[gene]+[dicce[gene]]
+		# outCompCE.write(','.join(dicCompCE[gene])+'\n')
+
 	except Exception as e:
-		print 'Ex3: ',e
+		print 'Ex5: ',e
 li = dicCompCE.values()
 size=len(dicCompCE.values())
 ce=[x for x in li if x[len(x)-1]=='CE']
@@ -151,3 +161,11 @@ for i in range(1,101):
 		output.write(','.join(ce[j])+'\n')
 		output.write(','.join(essen[j])+'\n')
 		output.write(','.join(norma[j])+'\n')
+
+#Set complete training set with "?" as class
+fcompletSet = open('files/completeTraining.csv','w')
+fcompletSet.write(strHeader)
+for v in diccent.values():
+	fcompletSet.write(','.join(v)+',?\n')
+	
+		
