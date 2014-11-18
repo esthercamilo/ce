@@ -1,0 +1,39 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0" is_locked="false">
+    <option name="myName" value="Project Default" />
+    <option name="myLocal" value="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="20">
+            <item index="0" class="java.lang.String" itemvalue="second" />
+            <item index="1" class="java.lang.String" itemvalue="Now" />
+            <item index="2" class="java.lang.String" itemvalue="you" />
+            <item index="3" class="java.lang.String" itemvalue="sudo" />
+            <item index="4" class="java.lang.String" itemvalue="First" />
+            <item index="5" class="java.lang.String" itemvalue="Next" />
+            <item index="6" class="java.lang.String" itemvalue="1-" />
+            <item index="7" class="java.lang.String" itemvalue="4-" />
+            <item index="8" class="java.lang.String" itemvalue="explorer" />
+            <item index="9" class="java.lang.String" itemvalue="3-" />
+            <item index="10" class="java.lang.String" itemvalue="2-" />
+            <item index="11" class="java.lang.String" itemvalue="Install" />
+            <item index="12" class="java.lang.String" itemvalue="http" />
+            <item index="13" class="java.lang.String" itemvalue="May" />
+            <item index="14" class="java.lang.String" itemvalue="Requeriments" />
+            <item index="15" class="java.lang.String" itemvalue="WEKA" />
+            <item index="16" class="java.lang.String" itemvalue="install.html" />
+            <item index="17" class="java.lang.String" itemvalue="5-" />
+            <item index="18" class="java.lang.String" itemvalue="Python" />
+            <item index="19" class="java.lang.String" itemvalue="libsbml-installation.html" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
+      <option name="processCode" value="true" />
+      <option name="processLiterals" value="true" />
+      <option name="processComments" value="true" />
+    </inspection_tool>
+  </profile>
+</component>

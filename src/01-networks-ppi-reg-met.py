@@ -1,8 +1,22 @@
+# ################################
+#AUTHOR: ESTHER CAMILO          #
+#e-mail: esthercamilo@gmail.com #
+#################################
+
 import re
 import collections
-# from collections import defaultdict
+
+#from collections import defaultdict
 #import numpy as np
 #import random as rm
+
+
+#Local of input files
+finput = open("config.txt")
+fstringinput = finput.readline().rstrip("\n")
+
+if not os.path.exists(fstringinput + '/files'):
+    os.makedirs(fstringinput + '/files')
 
 
 #return a dictionary key=GeneName,value=BlatnerName
@@ -55,7 +69,7 @@ def processList(list):
 
 
 def saveTemp(list, namefile):  #without extension
-    saida = open("files/" + namefile + ".tab", "w")
+    saida = open(fstringinput + "files/" + namefile + ".tab", "w")
     for elem in list:
         if len(elem) == 2:
             saida.write(elem[0] + "\t" + elem[1] + "\n")
@@ -63,14 +77,14 @@ def saveTemp(list, namefile):  #without extension
 
 
 #Dictionary (key=GeneName,value=BlatnerName)
-dicGNB = geneBlatner('data/GeneNames.csv')  #(GNB=GeneNameBlatner)
+dicGNB = geneBlatner(fstringinput + 'data/GeneNames.csv')  #(GNB=GeneNameBlatner)
 #Dictionary (key=UniProtkb,value=BlatnerName)
-dicUPB = uniprotBlatner('data/uniprot-organismEscherichiaColi.tab')  #(UPB=UniProtBlatner)
+dicUPB = uniprotBlatner(fstringinput + 'data/uniprot-organismEscherichiaColi.tab')  #(UPB=UniProtBlatner)
 
 
 def getPpi():
     listppi = []
-    fileDIP = open('data/Ecoli20140117.txt')
+    fileDIP = open(fstringinput + 'data/Ecoli20140117.txt')
     labelFileDIP = fileDIP.readline()
     p = re.compile('uniprotkb:.*')
     for line in fileDIP:
@@ -147,9 +161,9 @@ def readRegulon(file, listreg):
 
 
 def getReg(listreg):
-    fileTFsigma = open("data/network_sigma_gene.txt")
-    fileTFgene = open("data/network_tf_gene.txt")
-    fileNetTF = open("data/network_tf_tf.txt")
+    fileTFsigma = open(fstringinput + "data/network_sigma_gene.txt")
+    fileTFgene = open(fstringinput + "data/network_tf_gene.txt")
+    fileNetTF = open(fstringinput + "data/network_tf_tf.txt")
 
     dicsigma = {}
     dicsigma["Sigma19"] = "feci"
@@ -197,7 +211,7 @@ def getReg(listreg):
 
 def getMet():
     listmet = []
-    sbmldoc = readSBML("data/msb201165-s3.xml")
+    sbmldoc = readSBML(fstringinput + "data/msb201165-s3.xml")
     model = sbmldoc.getModel();
     reactions = model.getListOfReactions()
     dicReactionGenes = {}  # key = reaction; value = gene list

@@ -1,0 +1,2 @@
+/home/esther/projects/CE/
+/usr/share/java/weka.jar
