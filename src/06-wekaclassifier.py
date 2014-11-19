@@ -75,21 +75,24 @@ def setClassOrder(namefile):
     typeOfClass = '{CE,ESSENTIAL,NORMAL}'
     newLine = s.replace('numeric', typeOfClass)
     lines[index] = newLine
-    output = open("both/" + namefile.replace('.arff', '-CE.arff'), 'w')
+    namefile1 = namefile.replace("weka","weka/both")
+    output = open(namefile1.replace('.arff', '-CE.arff'), 'w')
     for i in range(len(lines)):
         output.write(lines[i])
 
     typeOfClass = '{CE-AUX,ESSENTIAL,NORMAL}'
     newLine = s.replace('numeric', typeOfClass)
     lines[index] = newLine
-    output = open("auxo/" + namefile.replace('.arff', '-AUX.arff'), 'w')
+    namefile2 = namefile.replace("weka","weka/auxo")
+    output = open(namefile2.replace('.arff', '-AUX.arff'), 'w')
     for i in range(len(lines)):
         output.write(lines[i])
 
     typeOfClass = '{CE-RICH,ESSENTIAL,NORMAL}'
     newLine = s.replace('numeric', typeOfClass)
     lines[index] = newLine
-    output = open("rich/" + namefile.replace('.arff', '-RICH.arff'), 'w')
+    namefile3 = namefile.replace("weka","weka/rich")
+    output = open(namefile3.replace('.arff', '-RICH.arff'), 'w')
     for i in range(len(lines)):
         output.write(lines[i])
 

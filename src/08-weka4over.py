@@ -1,3 +1,8 @@
+# ################################
+# AUTHOR: ESTHER CAMILO          #
+#e-mail: esthercamilo@gmail.com #
+#################################
+
 import os
 
 types = ['rich', 'both', 'auxo']
