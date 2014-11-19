@@ -1,15 +1,10 @@
 # ################################
-#AUTHOR: ESTHER CAMILO          #
+# AUTHOR: ESTHER CAMILO          #
 #e-mail: esthercamilo@gmail.com #
 #################################
 
 import re
 import collections
-
-#from collections import defaultdict
-#import numpy as np
-#import random as rm
-
 
 #Local of input files
 finput = open("config.txt")
@@ -103,7 +98,7 @@ def getPpi():
                 listppi.append((dicGNB[upNameA], dicGNB[upNameB]))
             except:
                 pass
-            #print traceback.format_exc()
+                #print traceback.format_exc()
     print len(listppi)
     return listppi
 

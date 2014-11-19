@@ -1,8 +1,17 @@
+# ################################
+# AUTHOR: ESTHER CAMILO          #
+#e-mail: esthercamilo@gmail.com #
+#################################
+
+
 import xlrd
 
-outputAux = open('files/ceaux.tab', 'w')
-outputRic = open('files/cerich.tab', 'w')
-outputBot = open('files/ceboth.tab', 'w')
+fcfg = open('config.txt')
+folder = fcfg.readline().rstrip('\n')
+
+outputAux = open(folder + 'files/ceaux.tab', 'w')
+outputRic = open(folder + 'files/cerich.tab', 'w')
+outputBot = open(folder + 'files/ceboth.tab', 'w')
 
 # return a dictionary key=GeneName,value=BlatnerName
 def geneBlatner(fileName):
@@ -20,11 +29,11 @@ def geneBlatner(fileName):
     return dicGNB
 
 
-dicGNB = geneBlatner('data/GeneNames.csv')  #(GNB=GeneNameBlatner)
+dicGNB = geneBlatner(folder + 'data/GeneNames.csv')  #(GNB=GeneNameBlatner)
 
 #READ XLS FILE
 
-workbook = xlrd.open_workbook('data/NIHMS261392-supplement-04.xls')
+workbook = xlrd.open_workbook(folder + 'data/NIHMS261392-supplement-04.xls')
 worksheet = workbook.sheet_by_name('Sheet1')
 
 listRich = []
@@ -72,8 +81,8 @@ save(bListAux, outputAux)
 save(bListRich, outputRic)
 
 #Generate list of ESSENTIALS
-outputE = open('files/essential.tab', 'w')
-workbookE = xlrd.open_workbook('data/msb4100050-s8.xls')
+outputE = open(folder + 'files/essential.tab', 'w')
+workbookE = xlrd.open_workbook(folder + 'data/msb4100050-s8.xls')
 worksheet = workbookE.sheet_by_index(0)
 
 listE = []

@@ -1,15 +1,23 @@
-# Read files
+# ################################
+# AUTHOR: ESTHER CAMILO          #
+#e-mail: esthercamilo@gmail.com #
+#################################
+import os
 
-fcent = open('files/centralites.tab')  #centralites
+fcfg = open('config.txt')
+folder = fcfg.readline().rstrip('\n')
+
+# Read files
+fcent = open(folder + 'files/centralites.tab')  #centralities
 headerCent = fcent.readline()
 strHeader = (headerCent.rstrip().replace('gene\t', '').replace('\t', ',')) + ',class\n'
 
 list_cent = [x.rstrip() for x in fcent.readlines()]
 
-fclassaux = open('files/ceaux.tab')  #auxotrophic
-fclassric = open('files/cerich.tab')  #rich
-fclassce = open('files/ceboth.tab')  #both aux and rich
-fessential = open('files/essential.tab')  #essential genes (300)
+fclassaux = open(folder + 'files/ceaux.tab')  #auxotrophic
+fclassric = open(folder + 'files/cerich.tab')  #rich
+fclassce = open(folder + 'files/ceboth.tab')  #both aux and rich
+fessential = open(folder + 'files/essential.tab')  #essential genes (300)
 
 listaux = [x.rstrip().split()[0] for x in fclassaux.readlines()]
 listric = [x.rstrip().split()[0] for x in fclassce.readlines()]
@@ -19,7 +27,9 @@ listboth = listaux + listric
 
 
 def setoutsample(list_ce, tipo, classe, name_output):
-    output = open('weka/' + tipo + '/oversampling/' + name_output, 'w')
+    if not os.path.exists(folder + 'weka/' + tipo + '/oversampling/'):
+        os.makedirs(folder + 'weka/' + tipo + '/oversampling/')
+    output = open(folder + 'weka/' + tipo + '/oversampling/' + name_output, 'w')
     output.write(headerCent.replace('\t', ',').replace('\n', ',classe\n'))
     listce = []
     listes = []

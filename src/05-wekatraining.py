@@ -1,10 +1,20 @@
+# ################################
+# AUTHOR: ESTHER CAMILO          #
+#e-mail: esthercamilo@gmail.com #
+#################################
+
+
 import os
 import random as rm
 
+fcfg = open('config.txt')
+folder = fcfg.readline().rstrip('\n')
+
 
 def makedir(namedir):
-    if not os.path.exists(namedir):
-        os.makedirs(namedir)
+    f = folder + namedir
+    if not os.path.exists(f):
+        os.makedirs(f)
 
 
 # Cria estrutura de arquivos
@@ -24,13 +34,13 @@ folders('rich')
 folders('both')
 
 #Read files 
-fcent = open('files/centralites.tab')  #centralites
+fcent = open(folder + 'files/centralites.tab')  #centralites
 headerCent = fcent.readline()
 strHeader = (headerCent.rstrip().replace('gene\t', '').replace('\t', ',')) + ',class\n'
-fclassaux = open('files/ceaux.tab')  #auxotrophic
-fclassric = open('files/cerich.tab')  #rich
-fclassce = open('files/ceboth.tab')  #both aux and rich
-fessential = open('files/essential.tab')  #essential genes (300)
+fclassaux = open(folder + 'files/ceaux.tab')  #auxotrophic
+fclassric = open(folder + 'files/cerich.tab')  #rich
+fclassce = open(folder + 'files/ceboth.tab')  #both aux and rich
+fessential = open(folder + 'files/essential.tab')  #essential genes (300)
 
 #dictionaries
 dicaux = {}
@@ -102,7 +112,7 @@ essen = [x for x in li if x[len(x) - 1] == 'ESSENTIAL']
 norma = [x for x in li if x[len(x) - 1] == 'NORMAL']
 minSize = min(min(len(ceaux), len(essen)), len(norma))
 for i in range(1, 101):
-    output = open('weka/auxo/csv/' + str(i) + '.csv', 'w')
+    output = open(folder + 'weka/auxo/csv/' + str(i) + '.csv', 'w')
     output.write(strHeader)
     rm.shuffle(ceaux)
     rm.shuffle(essen)
@@ -128,7 +138,7 @@ essen = [x for x in li if x[len(x) - 1] == 'ESSENTIAL']
 norma = [x for x in li if x[len(x) - 1] == 'NORMAL']
 minSize = min(min(len(ceric), len(essen)), len(norma))
 for i in range(1, 101):
-    output = open('weka/rich/csv/' + str(i) + '.csv', 'w')
+    output = open(folder + 'weka/rich/csv/' + str(i) + '.csv', 'w')
     output.write(strHeader)
     rm.shuffle(ceric)
     rm.shuffle(essen)
@@ -155,7 +165,7 @@ essen = [x for x in li if x[len(x) - 1] == 'ESSENTIAL']
 norma = [x for x in li if x[len(x) - 1] == 'NORMAL']
 minSize = min(min(len(ce), len(essen)), len(norma))
 for i in range(1, 101):
-    output = open('weka/both/csv/' + str(i) + '.csv', 'w')
+    output = open(folder + 'weka/both/csv/' + str(i) + '.csv', 'w')
     output.write(strHeader)
     rm.shuffle(ce)
     rm.shuffle(essen)
@@ -166,7 +176,7 @@ for i in range(1, 101):
         output.write(','.join(norma[j]) + '\n')
 
 #Set complete training set with "?" as class
-fcompletSet = open('files/completeTraining.csv', 'w')
+fcompletSet = open(folder + 'files/completeTraining.csv', 'w')
 fcompletSet.write(strHeader)
 for v in diccent.values():
     fcompletSet.write(','.join(v) + ',?\n')

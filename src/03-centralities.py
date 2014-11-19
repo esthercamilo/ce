@@ -1,13 +1,18 @@
 import networkx as nx
 
 
-fileLog = open('filelog.txt', 'w')
+fcfg = open('config.txt')
+folder = fcfg.readline().rstrip('\n')
+# ################################
+# AUTHOR: ESTHER CAMILO          #
+#e-mail: esthercamilo@gmail.com #
+#################################
 
 # read ppi,reg,met
-fppi = open('files/ppi.tab')
-freg = open('files/reg.tab')
-fmet = open('files/met.tab')
-fint = open('files/int.tab')
+fppi = open(folder + 'files/ppi.tab')
+freg = open(folder + 'files/reg.tab')
+fmet = open(folder + 'files/met.tab')
+fint = open(folder + 'files/int.tab')
 
 
 def readfile(file):
@@ -105,7 +110,7 @@ dicloareg.update(nx.load_centrality(Greg))
 dicloamet.update(nx.load_centrality(Gmet))
 
 #Save attributes file
-fileCent = open('files/centralites.tab', 'w')
+fileCent = open(folder + 'files/centralites.tab', 'w')
 fileCent.write("gene\t" + ("\t".join(llca)) + '\n')
 q1 = (("%s\t") * (len(llca) + 1)).rstrip("\t") + "\n"
 q2 = "n," + (",".join(["dic" + x + "[n]" for x in llca])) + "\n"
@@ -115,7 +120,7 @@ fileCent.close()
 
 
 #List of genes
-fileNodes = open('files/genes.tab', 'w')
+fileNodes = open(folder + 'files/genes.tab', 'w')
 for g in nodesGInt:
     fileNodes.write(g + '\n')
 
