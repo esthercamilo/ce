@@ -16,7 +16,10 @@ The file int.tab contains the intersection of the three networks.
 
 03-centralities.py
 The degree, betweeness, closeness and load are calculated for each gene for each network (ppi, reg, met,
-int)
+int). The output is the file "centralites.tab".
+
+04-goterms.py
+Create the file "goterms.tab" containing each gene and F or T for each term.
 
 04-classE-CE.py
 The output files "ceaux.tab", "cerich.tab" and "ceboth.tab" are created from original data in xls file.
@@ -45,7 +48,6 @@ contains the cluster (0-3).
 11-summarizeclusters.py
 Create the file "repTree.csv". This file contains the representative tree for each cluster. It is possible to infer 
 the dominant cluster.
-
 
 The remainding analyses were performed using R. The R scripts can be found at: <a href="http://rpubs.br/esthercamilo/"></a>
 
