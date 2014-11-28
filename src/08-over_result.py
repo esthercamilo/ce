@@ -8,11 +8,11 @@ fcfg = open('config.txt')
 folder = fcfg.readline().rstrip('\n')
 
 # Read files
-fcent = open(folder + 'files/centralites.tab')  #centralities
+fcent = open(folder + 'files/cegoterms.csv')  #centralities
 headerCent = fcent.readline()
-strHeader = (headerCent.rstrip().replace('gene\t', '').replace('\t', ',')) + ',class\n'
+strHeader = (headerCent.rstrip().replace('gene,', '')) + ',class\n'
 
-list_cent = [x.rstrip() for x in fcent.readlines()]
+list_cent = [x.rstrip('\n') for x in fcent.readlines()]
 
 fclassaux = open(folder + 'files/ceaux.tab')  #auxotrophic
 fclassric = open(folder + 'files/cerich.tab')  #rich
@@ -35,7 +35,7 @@ def setoutsample(list_ce, tipo, classe, name_output):
     listes = []
     listno = []
     for elem in list_cent:
-        d = elem.split()
+        d = elem.split(',')
         if d[0] in list_ce:
             listce.append(elem)
         elif d[0] in listess:

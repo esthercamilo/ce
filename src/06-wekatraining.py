@@ -21,12 +21,17 @@ def makedir(namedir):
 
 def folders(ce):
     makedir('weka/' + ce + '/arff')
+    makedir('weka/' + ce + '/arff_rnd')
     makedir('weka/' + ce + '/csv')
+    makedir('weka/' + ce + '/csv_rnd')
     makedir('weka/' + ce + '/dot')
     makedir('weka/' + ce + '/model')
     makedir('weka/' + ce + '/out')
     makedir('weka/' + ce + '/png')
     makedir('weka/' + ce + '/result')
+    makedir('weka/' + ce + '/result_rnd')
+    makedir('weka/' + ce + '/vote_result')
+    makedir('weka/' + ce + '/vote_result_rnd')
 
 
 folders('auxo')
@@ -34,9 +39,9 @@ folders('rich')
 folders('both')
 
 #Read files 
-fcent = open(folder + 'files/centralites.tab')  #centralites
+fcent = open(folder + 'files/cegoterms.csv')  #centralites
 headerCent = fcent.readline()
-strHeader = (headerCent.rstrip().replace('gene\t', '').replace('\t', ',')) + ',class\n'
+strHeader = (headerCent.rstrip().replace('gene,', '')) + ',class\n'
 fclassaux = open(folder + 'files/ceaux.tab')  #auxotrophic
 fclassric = open(folder + 'files/cerich.tab')  #rich
 fclassce = open(folder + 'files/ceboth.tab')  #both aux and rich
@@ -50,7 +55,7 @@ dicE = {}
 diccent = {}
 
 for elem in fcent:
-    data = elem.split()
+    data = elem.rstrip('\n').split(',')
     diccent[data[0]] = data[1:len(data)]
 
 allgenes = diccent.keys()
@@ -94,90 +99,65 @@ setEssential(dicaux)
 setEssential(dicrich)
 setEssential(dicce)
 
-#Complete set for each CE
+def executa(tipo,classe,dic): #('auxo','CE-AUX',dicaux)
 
-dicCompAux = {}
-# outCompAux=open('files/trainingCE-AUX.csv','w')
-# outCompAux.write(strHeader)
-for gene in allgenes:
-    try:
-        dicCompAux[gene] = diccent[gene] + [dicaux[gene]]
-    #outCompAux.write(','.join(dicCompAux[gene])+'\n')
-    except Exception as e:
-        print 'Ex3: ', e
-li = dicCompAux.values()
-size = len(dicCompAux.values())
-ceaux = [x for x in li if x[len(x) - 1] == 'CE-AUX']
-essen = [x for x in li if x[len(x) - 1] == 'ESSENTIAL']
-norma = [x for x in li if x[len(x) - 1] == 'NORMAL']
-minSize = min(min(len(ceaux), len(essen)), len(norma))
-for i in range(1, 101):
-    output = open(folder + 'weka/auxo/csv/' + str(i) + '.csv', 'w')
-    output.write(strHeader)
-    rm.shuffle(ceaux)
-    rm.shuffle(essen)
-    rm.shuffle(norma)
-    for j in range(minSize):
-        output.write(','.join(ceaux[j]) + '\n')
-        output.write(','.join(essen[j]) + '\n')
-        output.write(','.join(norma[j]) + '\n')
+    dicComp = {}
 
-dicCompRich = {}
-# outCompRich=open('files/trainingCE-RICH.csv','w')
-# outCompRich.write(strHeader)
-for gene in allgenes:
-    try:
-        dicCompRich[gene] = diccent[gene] + [dicrich[gene]]
-    # outCompRich.write(','.join(dicCompRich[gene])+'\n')
-    except Exception as e:
-        print 'Ex4: ', e
-li = dicCompRich.values()
-size = len(dicCompRich.values())
-ceric = [x for x in li if x[len(x) - 1] == 'CE-RICH']
-essen = [x for x in li if x[len(x) - 1] == 'ESSENTIAL']
-norma = [x for x in li if x[len(x) - 1] == 'NORMAL']
-minSize = min(min(len(ceric), len(essen)), len(norma))
-for i in range(1, 101):
-    output = open(folder + 'weka/rich/csv/' + str(i) + '.csv', 'w')
-    output.write(strHeader)
-    rm.shuffle(ceric)
-    rm.shuffle(essen)
-    rm.shuffle(norma)
-    for j in range(minSize):
-        output.write(','.join(ceric[j]) + '\n')
-        output.write(','.join(essen[j]) + '\n')
-        output.write(','.join(norma[j]) + '\n')
+    for gene in allgenes:
+        try:
+            dicComp[gene] = diccent[gene] + [dic[gene]]
+        except Exception as e:
+            print 'Ex3: ', e
+    li = dicComp.values()
+    size = len(dicComp.values())
+    ceaux = [x for x in li if x[len(x) - 1] == classe]
+    essen = [x for x in li if x[len(x) - 1] == 'ESSENTIAL']
+    norma = [x for x in li if x[len(x) - 1] == 'NORMAL']
+    minSize = min(min(len(ceaux), len(essen)), len(norma))
 
-dicCompCE = {}
-# outCompCE=open('files/trainingCE.csv','w')
-# outCompCE.write(strHeader)
-for gene in allgenes:
-    try:
-        dicCompCE[gene] = diccent[gene] + [dicce[gene]]
-    # outCompCE.write(','.join(dicCompCE[gene])+'\n')
+    for i in range(1, 101):
+        output = open(folder + 'weka/'+tipo+'/csv/' + str(i) + '.csv', 'w')
+        output_rnd = open(folder + 'weka/'+tipo+'/csv_rnd/' + str(i) + '.csv', 'w')
+        output.write(strHeader)
+        output_rnd.write(strHeader)
+        rm.shuffle(ceaux)
+        rm.shuffle(essen)
+        rm.shuffle(norma)
+        tclasses = [classe,'ESSENTIAL','NORMAL']
 
-    except Exception as e:
-        print 'Ex5: ', e
-li = dicCompCE.values()
-size = len(dicCompCE.values())
-ce = [x for x in li if x[len(x) - 1] == 'CE']
-essen = [x for x in li if x[len(x) - 1] == 'ESSENTIAL']
-norma = [x for x in li if x[len(x) - 1] == 'NORMAL']
-minSize = min(min(len(ce), len(essen)), len(norma))
-for i in range(1, 101):
-    output = open(folder + 'weka/both/csv/' + str(i) + '.csv', 'w')
-    output.write(strHeader)
-    rm.shuffle(ce)
-    rm.shuffle(essen)
-    rm.shuffle(norma)
-    for j in range(minSize):
-        output.write(','.join(ce[j]) + '\n')
-        output.write(','.join(essen[j]) + '\n')
-        output.write(','.join(norma[j]) + '\n')
+        for j in range(minSize):
+            rm.shuffle(tclasses)
+            strA = ','.join(ceaux[j])
+            strB = ','.join(essen[j])
+            strC = ','.join(norma[j])
+
+            output.write(strA + '\n')
+            output.write(strB + '\n')
+            output.write(strC + '\n')
+
+            t0 = tclasses[0]
+            t1 = tclasses[1]
+            t2 = tclasses[2]
+
+            c0 = strA.rstrip('\n').split(',')[-1]
+            c1 = strB.rstrip('\n').split(',')[-1]
+            c2 = strC.rstrip('\n').split(',')[-1]
+
+            output_rnd.write(strA.replace(c0,t0) + '\n')
+            output_rnd.write(strB.replace(c1,t1) + '\n')
+            output_rnd.write(strC.replace(c2,t2) + '\n')
+
+
+executa('auxo','CE-AUX',dicaux)
+executa('rich','CE-RICH',dicrich)
+executa('both','CE',dicce)
 
 #Set complete training set with "?" as class
 fcompletSet = open(folder + 'files/completeTraining.csv', 'w')
 fcompletSet.write(strHeader)
+
+a = diccent.values()
+
 for v in diccent.values():
     fcompletSet.write(','.join(v) + ',?\n')
 	

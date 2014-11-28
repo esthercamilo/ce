@@ -9,11 +9,10 @@ public class prob{
 /* args are the complete path for umbalanced-???.arff*/
 
 public static void main(String[] args) {
-		for (String f : args){
-			System.out.println(f);
-			String modelFileSerialized; 
-			String testFileARFF = f;
 
+			String modelFileSerialized; 
+			String testFileARFF = args[0];
+            String toutput = args[1];
 			//split path in the slash and find the parent folder
 			String[] parts = testFileARFF.split("/");
 			int lastIndex = parts.length;
@@ -27,7 +26,7 @@ public static void main(String[] args) {
 			String outputfile;
 			for (int i = 0; i < 100; i++) {
 				modelFileSerialized = parentFolder+"/model/"+(i+1)+".model";
-				outputfile = parentFolder+"/out/"+(i+1)+".out";
+				outputfile = parentFolder+"/"+toutput+"/"+(i+1)+".out";
 				try {
 					fmt = new Formatter(outputfile);
 				
@@ -45,7 +44,7 @@ public static void main(String[] args) {
 				}
 			
 		
-			}	
+
 		}	
 	}
 

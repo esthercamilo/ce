@@ -14,7 +14,7 @@ wekalocation = fcfg.readline().rstrip('\n')
 types = [('auxo', 'AUX'), ('both', 'CE'), ('rich', 'RICH')]
 
 for t in types:
-    strinput = "java -cp " + wekalocation + ":. prob " + folder +"weka/"+ t[0] + "/completeTraining-" + t[1] + ".arff"
+    strinput = "java -cp " + wekalocation + ":. prob " + folder + "weka/" + t[0] + "/completeTraining-" + t[1] + ".arff out"
     os.system(strinput)
     saida = open(folder + 'weka/' + t[0] + '/matrix.csv', 'w')
     listas = []

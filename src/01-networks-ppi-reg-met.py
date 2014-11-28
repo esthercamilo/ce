@@ -5,6 +5,8 @@
 
 import re
 import collections
+import os
+from libsbml import *
 
 #Local of input files
 finput = open("config.txt")

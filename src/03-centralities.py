@@ -1,12 +1,13 @@
+# ################################
+# AUTHOR: ESTHER CAMILO          #
+#e-mail: esthercamilo@gmail.com #
+#################################
+
 import networkx as nx
 
 
 fcfg = open('config.txt')
 folder = fcfg.readline().rstrip('\n')
-# ################################
-# AUTHOR: ESTHER CAMILO          #
-#e-mail: esthercamilo@gmail.com #
-#################################
 
 # read ppi,reg,met
 fppi = open(folder + 'files/ppi.tab')
