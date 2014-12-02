@@ -6,26 +6,28 @@ import weka.core.converters.ConverterUtils.DataSource;
 
 public class prob{
 
-/* args are the complete path for umbalanced-???.arff*/
 
 public static void main(String[] args) {
 
 			String modelFileSerialized; 
 			String testFileARFF = args[0];
             String toutput = args[1];
+            String model = args[2];
 			//split path in the slash and find the parent folder
 			String[] parts = testFileARFF.split("/");
 			int lastIndex = parts.length;
 			String parentFolder ="";
 			for(int i = 0; i < lastIndex-1; i++) {
-				parentFolder = parentFolder + "/" + parts[i];
+				parentFolder = parentFolder + parts[i]  + "/";
 			}
 
+			parentFolder = parentFolder.substring(0, parentFolder.length()-1);
+			
 			Formatter fmt;
 			prob p = new prob();
 			String outputfile;
-			for (int i = 0; i < 100; i++) {
-				modelFileSerialized = parentFolder+"/model/"+(i+1)+".model";
+			for (int i = 0; i < 101; i++) {
+				modelFileSerialized = parentFolder+"/"+model+"/"+(i+1)+".model";
 				outputfile = parentFolder+"/"+toutput+"/"+(i+1)+".out";
 				try {
 					fmt = new Formatter(outputfile);
@@ -68,8 +70,10 @@ public void test(String modelFileSerialized, String testFileARFF, Formatter outp
 
     // Loop over each test instance.
     for (int i = 0; i < numTestInstances; i++)
+    	
     {
-        // Get the true class label from the instance's own classIndex.
+    	
+    	// Get the true class label from the instance's own classIndex.
         String trueClassLabel = 
             testInstances.instance(i).toString(testInstances.classIndex());
 

@@ -27,11 +27,13 @@ def folders(ce):
     makedir('weka/' + ce + '/dot')
     makedir('weka/' + ce + '/model')
     makedir('weka/' + ce + '/out')
+    makedir('weka/' + ce + '/out_vote')
     makedir('weka/' + ce + '/png')
     makedir('weka/' + ce + '/result')
     makedir('weka/' + ce + '/result_rnd')
     makedir('weka/' + ce + '/vote_result')
     makedir('weka/' + ce + '/vote_result_rnd')
+    makedir('weka/' + ce + '/vote_threshold')
 
 
 folders('auxo')

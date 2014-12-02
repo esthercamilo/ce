@@ -9,7 +9,7 @@ import xlrd
 fcfg = open('config.txt')
 folder = fcfg.readline().rstrip('\n')
 
-outputAux = open(folder + 'files/ceaux.tab', 'w')
+outputAux = open(folder + 'files/ceauxo.tab', 'w')
 outputRic = open(folder + 'files/cerich.tab', 'w')
 outputBot = open(folder + 'files/ceboth.tab', 'w')
 

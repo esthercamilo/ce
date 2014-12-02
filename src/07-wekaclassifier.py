@@ -58,67 +58,74 @@ def drawTrees(type):
 
 
 #It is important to keep the class order in training files
-def setClassOrder(namefile):
-    print "Setting thread order"
+def setClassOrder(classe,tipo):
+    namefile = folder + 'weka/completeTraining.arff'
+    print "Setting class order"
     file = open(namefile)
     lines = file.readlines()
     s = [x for x in lines if '@attribute class' in x][0]
     index = lines.index(s)
 
-    typeOfClass = '{CE,ESSENTIAL,NORMAL}'
+    typeOfClass = '{'+classe+',ESSENTIAL,NORMAL}'
     newLine = s.replace('numeric', typeOfClass)
     lines[index] = newLine
-    namefile1 = namefile.replace("weka","weka/both")
-    output = open(namefile1.replace('.arff', '-CE.arff'), 'w')
+    namefile1 = namefile.replace("weka","weka/"+tipo)
+    output = open(namefile1.replace('.arff', '-'+classe+'.arff'), 'w')
     for i in range(len(lines)):
         output.write(lines[i])
 
-    typeOfClass = '{CE-AUX,ESSENTIAL,NORMAL}'
-    newLine = s.replace('numeric', typeOfClass)
-    lines[index] = newLine
-    namefile2 = namefile.replace("weka","weka/auxo")
-    output = open(namefile2.replace('.arff', '-AUX.arff'), 'w')
-    for i in range(len(lines)):
-        output.write(lines[i])
-
-    typeOfClass = '{CE-RICH,ESSENTIAL,NORMAL}'
-    newLine = s.replace('numeric', typeOfClass)
-    lines[index] = newLine
-    namefile3 = namefile.replace("weka","weka/rich")
-    output = open(namefile3.replace('.arff', '-RICH.arff'), 'w')
-    for i in range(len(lines)):
-        output.write(lines[i])
+    #correct the undersampling arff
+    for i in range(1,101):
+        name_f_in = folder + 'weka/'+tipo+'/arff/'+str(i)+'.arff'
+        name_f_out = folder + 'weka/'+tipo+'/arff/'+str(i)+'.arff_o'
+        f_under_in = open(name_f_in)
+        f_under_out = open(name_f_out,'w')
+        for l in f_under_in:
+            if '{' in l and '@attribute class' not in l:
+                s_replace = l[l.index('{'):len(l)-1]
+                new_line = l.replace(s_replace,"{F,V}")
+                f_under_out.write(new_line)
+            elif '@attribute class' in l:
+                new_line = '@attribute class {'+classe+',ESSENTIAL,NORMAL}\n'
+                f_under_out.write(new_line)
+            else:
+                f_under_out.write(l)
+        f_under_in.close()
+        os.remove(name_f_in)
+        os.rename(name_f_out,name_f_in)
 
 #Draw trees
 
 # Convert from csv to arff
-threadConvert = Thread(target=convert, args=())
-threadConvert.start()
-threadConvert.join()
+# threadConvert = Thread(target=convert, args=())
+# threadConvert.start()
+# threadConvert.join()
+#
+# threadj48aux = Thread(target=j48, args=('auxo','30'))
+# threadj48aux.start()
+# threadj48aux.join()
+#
+# threadj48rich = Thread(target=j48, args=('rich','45'))
+# threadj48rich.start()
+# threadj48rich.join()
+#
+# threadj48both = Thread(target=j48, args=('both','50'))
+# threadj48both.start()
+# threadj48both.join()
+#
+# threadDrawTreesAux = Thread(target=drawTrees, args=(['auxo']))
+# threads.append(threadDrawTreesAux)
+# threadDrawTreesRich = Thread(target=drawTrees, args=(['rich']))
+# threads.append(threadDrawTreesRich)
+# threadDrawTreesBoth = Thread(target=drawTrees, args=(['both']))
+# threads.append(threadDrawTreesBoth)
+# [x.start() for x in threads]
+# [x.join() for x in threads]
 
-threadj48aux = Thread(target=j48, args=('auxo','30'))
-threadj48aux.start()
-threadj48aux.join()
 
-threadj48rich = Thread(target=j48, args=('rich','45'))
-threadj48rich.start()
-threadj48rich.join()
-
-threadj48both = Thread(target=j48, args=('both','50'))
-threadj48both.start()
-threadj48both.join()
-
-threadDrawTreesAux = Thread(target=drawTrees, args=(['auxo']))
-threads.append(threadDrawTreesAux)
-threadDrawTreesRich = Thread(target=drawTrees, args=(['rich']))
-threads.append(threadDrawTreesRich)
-threadDrawTreesBoth = Thread(target=drawTrees, args=(['both']))
-threads.append(threadDrawTreesBoth)
-[x.start() for x in threads]
-[x.join() for x in threads]
-
-address = [folder + 'weka/completeTraining.arff']
-threadOrder = Thread(target=setClassOrder, args=(address))
-threadOrder.start()
-threadOrder.join()
+tipos=[('CE-RICH','rich'),('CE-AUX','auxo'),('CE','both')]
+for t in tipos:
+    threadOrder = Thread(target=setClassOrder, args=(t[0],t[1]))
+    threadOrder.start()
+    threadOrder.join()
 
