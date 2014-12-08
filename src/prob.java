@@ -26,7 +26,7 @@ public static void main(String[] args) {
 			Formatter fmt;
 			prob p = new prob();
 			String outputfile;
-			for (int i = 0; i < 101; i++) {
+			for (int i = 0; i < 100; i++) {
 				modelFileSerialized = parentFolder+"/"+model+"/"+(i+1)+".model";
 				outputfile = parentFolder+"/"+toutput+"/"+(i+1)+".out";
 				try {

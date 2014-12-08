@@ -54,10 +54,7 @@ def resumeOut(tipo,classe):
 
 
 
-#t = [('auxo','CE-AUX'),('rich','CE-RICH'),('both','CE')]
-
-
-t = [('rich','CE-RICH')]
+t = [('rich','CE-RICH'),('auxo','CE-AUX'),('both','CE')]
 
 for tipo in t:
     resumeOut(tipo[0],tipo[1])

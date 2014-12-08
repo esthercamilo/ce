@@ -94,33 +94,32 @@ def setClassOrder(classe,tipo):
         os.remove(name_f_in)
         os.rename(name_f_out,name_f_in)
 
-#Draw trees
 
 # Convert from csv to arff
-# threadConvert = Thread(target=convert, args=())
-# threadConvert.start()
-# threadConvert.join()
-#
-# threadj48aux = Thread(target=j48, args=('auxo','30'))
-# threadj48aux.start()
-# threadj48aux.join()
-#
-# threadj48rich = Thread(target=j48, args=('rich','45'))
-# threadj48rich.start()
-# threadj48rich.join()
-#
-# threadj48both = Thread(target=j48, args=('both','50'))
-# threadj48both.start()
-# threadj48both.join()
-#
-# threadDrawTreesAux = Thread(target=drawTrees, args=(['auxo']))
-# threads.append(threadDrawTreesAux)
-# threadDrawTreesRich = Thread(target=drawTrees, args=(['rich']))
-# threads.append(threadDrawTreesRich)
-# threadDrawTreesBoth = Thread(target=drawTrees, args=(['both']))
-# threads.append(threadDrawTreesBoth)
-# [x.start() for x in threads]
-# [x.join() for x in threads]
+threadConvert = Thread(target=convert, args=())
+threadConvert.start()
+threadConvert.join()
+
+threadj48aux = Thread(target=j48, args=('auxo','30'))
+threadj48aux.start()
+threadj48aux.join()
+
+threadj48rich = Thread(target=j48, args=('rich','45'))
+threadj48rich.start()
+threadj48rich.join()
+
+threadj48both = Thread(target=j48, args=('both','50'))
+threadj48both.start()
+threadj48both.join()
+
+threadDrawTreesAux = Thread(target=drawTrees, args=(['auxo']))
+threads.append(threadDrawTreesAux)
+threadDrawTreesRich = Thread(target=drawTrees, args=(['rich']))
+threads.append(threadDrawTreesRich)
+threadDrawTreesBoth = Thread(target=drawTrees, args=(['both']))
+threads.append(threadDrawTreesBoth)
+[x.start() for x in threads]
+[x.join() for x in threads]
 
 
 tipos=[('CE-RICH','rich'),('CE-AUX','auxo'),('CE','both')]
