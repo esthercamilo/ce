@@ -4,9 +4,6 @@
 #################################
 
 
-#IMPORTANT
-#Meta vote cannot handle multi-valued nominal class!
-
 import os
 
 fcfg = open('config.txt')
@@ -34,7 +31,8 @@ for t in types:
             -B "weka.classifiers.meta.Bagging -P 100 -I 20 -W weka.classifiers.trees.J48 -- -C 0.5 -M 32"\
             -B "weka.classifiers.meta.Bagging -P 100 -I 20 -W weka.classifiers.trees.BFTree -- -M 32 -N 5 -C 1.0 -P \
              POSTPRUNED" -R AVG -t '+folder+'weka/'\
-             +t+'/arff/'+str(i)+'.arff -i > '+folder+'weka/'+t+'/vote_result/'+str(i)+'-result.txt')
+             +t+'/arff/'+str(i)+'.arff -i -threshold-file '+folder+'weka/'+t+'/vote_threshold/'+\
+		     str(i)+'.csv> '+folder+'weka/'+t+'/vote_result/'+str(i)+'-result.txt')
 
 
 #FOR RANDOM
